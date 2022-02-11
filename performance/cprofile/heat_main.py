@@ -5,8 +5,9 @@ import argparse
 from heat import init_fields, write_field, iterate
 
 
-def main(input_file='bottle.dat', a=0.5, dx=0.1, dy=0.1, 
-         timesteps=200, image_interval=4000):
+def main(
+    input_file="bottle.dat", a=0.5, dx=0.1, dy=0.1, timesteps=200, image_interval=4000
+):
 
     # Initialise the temperature field
     field, field0 = init_fields(input_file)
@@ -16,10 +17,8 @@ def main(input_file='bottle.dat', a=0.5, dx=0.1, dy=0.1,
     print("Input file: {}".format(input_file))
     print("Parameters")
     print("----------")
-    print("  nx={} ny={} dx={} dy={}".format(field.shape[0], field.shape[1],
-                                             dx, dy))
-    print("  time steps={}  image interval={}".format(timesteps,
-                                                         image_interval))
+    print("  nx={} ny={} dx={} dy={}".format(field.shape[0], field.shape[1], dx, dy))
+    print("  time steps={}  image interval={}".format(timesteps, image_interval))
 
     # Plot/save initial field
     write_field(field, 0)
@@ -30,26 +29,24 @@ def main(input_file='bottle.dat', a=0.5, dx=0.1, dy=0.1,
     # Plot/save final field
     write_field(field, timesteps)
 
-    print("Simulation finished in {0} s".format(t1-t0))
+    print("Simulation finished in {0} s".format(t1 - t0))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
 
     # Process command line arguments
-    parser = argparse.ArgumentParser(description='Heat equation')
-    parser.add_argument('-dx', type=float, default=0.01,
-                        help='grid spacing in x-direction')
-    parser.add_argument('-dy', type=float, default=0.01,
-                        help='grid spacing in y-direction')
-    parser.add_argument('-a', type=float, default=0.5,
-                        help='diffusion constant')
-    parser.add_argument('-n', type=int, default=200,
-                        help='number of time steps')
-    parser.add_argument('-i', type=int, default=4000,
-                        help='image interval')
-    parser.add_argument('-f', type=str, default='bottle.dat', 
-                        help='input file')
+    parser = argparse.ArgumentParser(description="Heat equation")
+    parser.add_argument(
+        "-dx", type=float, default=0.01, help="grid spacing in x-direction"
+    )
+    parser.add_argument(
+        "-dy", type=float, default=0.01, help="grid spacing in y-direction"
+    )
+    parser.add_argument("-a", type=float, default=0.5, help="diffusion constant")
+    parser.add_argument("-n", type=int, default=200, help="number of time steps")
+    parser.add_argument("-i", type=int, default=4000, help="image interval")
+    parser.add_argument("-f", type=str, default="bottle.dat", help="input file")
 
     args = parser.parse_args()
 
     main(args.f, args.a, args.dx, args.dy, args.n, args.i)
-
